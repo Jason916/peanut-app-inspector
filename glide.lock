@@ -1,0 +1,27 @@
+hash: 3af89bcde4946a6e7feedc0a734e658246ecdd181a943bde44d5ee6c96b30487
+updated: 2018-02-28T13:31:40.578246+08:00
+imports:
+- name: github.com/davecgh/go-spew
+  version: 346938d642f2ec3594ed81d874461961cd0faa76
+  subpackages:
+  - spew
+- name: github.com/Jason916/peanut_core
+  version: e760a176f520169129e5ba6e5f6ceb59f42e1d8b
+  subpackages:
+  - handler
+  - json
+  - log
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - difflib
+- name: github.com/stretchr/objx
+  version: 8a3f7159479fbc75b30357fbc48f380b7320f08e
+- name: github.com/stretchr/testify
+  version: 12b6f73e6084dad08a7c6e575284b177ecafbc71
+  subpackages:
+  - assert
+  - http
+  - mock
+  - require
+testImports: []

@@ -1,0 +1,25 @@
+compiled source #  
+###################  
+*.com  
+*.class  
+*.dll  
+*.exe  
+*.o  
+*.so  
+
+# OS generated files #  
+######################  
+.DS_Store  
+.DS_Store?  
+.Spotlight-V100  
+.Trashes  
+ehthumbs.db  
+Thumbs.db
+
+.idea
+.log
+.temp
+pkg
+src
+node_modules
+peanut-app-inspector
