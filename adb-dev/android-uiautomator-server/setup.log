@@ -1,0 +1,76 @@
+Incremental java compilation is an incubating feature.
+:app:preBuild UP-TO-DATE
+:app:preDebugBuild UP-TO-DATE
+:app:checkDebugManifest
+:app:preReleaseBuild UP-TO-DATE
+:app:prepareComAndroidSupportAnimatedVectorDrawable2511Library UP-TO-DATE
+:app:prepareComAndroidSupportAppcompatV72511Library UP-TO-DATE
+:app:preDebugAndroidTestBuild UP-TO-DATE
+:app:prepareComAndroidSupportSupportCompat2511Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportCoreUi2511Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportCoreUtils2511Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportFragment2511Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportMediaCompat2511Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportV42511Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportVectorDrawable2511Library UP-TO-DATE
+:app:prepareDebugDependencies
+:app:compileDebugAidl UP-TO-DATE
+:app:compileDebugRenderscript UP-TO-DATE
+:app:generateDebugBuildConfig UP-TO-DATE
+:app:generateDebugResValues UP-TO-DATE
+:app:generateDebugResources UP-TO-DATE
+:app:mergeDebugResources UP-TO-DATE
+:app:processDebugManifest UP-TO-DATE
+:app:processDebugResources UP-TO-DATE
+:app:generateDebugSources UP-TO-DATE
+:app:incrementalDebugJavaCompilationSafeguard UP-TO-DATE
+:app:compileDebugKotlin UP-TO-DATE
+:app:compileDebugJavaWithJavac UP-TO-DATE
+:app:copyDebugKotlinClasses UP-TO-DATE
+:app:compileDebugNdk UP-TO-DATE
+:app:compileDebugSources UP-TO-DATE
+:app:mergeDebugShaders UP-TO-DATE
+:app:compileDebugShaders UP-TO-DATE
+:app:generateDebugAssets UP-TO-DATE
+:app:mergeDebugAssets UP-TO-DATE
+:app:transformClassesWithDexForDebug UP-TO-DATE
+:app:mergeDebugJniLibFolders UP-TO-DATE
+:app:transformNative_libsWithMergeJniLibsForDebug UP-TO-DATE
+:app:processDebugJavaRes UP-TO-DATE
+:app:transformResourcesWithMergeJavaResForDebug UP-TO-DATE
+:app:validateSigningDebug
+:app:packageDebug UP-TO-DATE
+:app:assembleDebug UP-TO-DATE
+:app:prepareComAndroidSupportTestExposedInstrumentationApiPublish05Library UP-TO-DATE
+:app:prepareComAndroidSupportTestRules05Library UP-TO-DATE
+:app:prepareComAndroidSupportTestRunner05Library UP-TO-DATE
+:app:prepareComAndroidSupportTestUiautomatorUiautomatorV18212Library UP-TO-DATE
+:app:prepareDebugAndroidTestDependencies
+:app:compileDebugAndroidTestAidl UP-TO-DATE
+:app:processDebugAndroidTestManifest UP-TO-DATE
+:app:compileDebugAndroidTestRenderscript UP-TO-DATE
+:app:generateDebugAndroidTestBuildConfig UP-TO-DATE
+:app:generateDebugAndroidTestResValues UP-TO-DATE
+:app:generateDebugAndroidTestResources UP-TO-DATE
+:app:mergeDebugAndroidTestResources UP-TO-DATE
+:app:processDebugAndroidTestResources UP-TO-DATE
+:app:generateDebugAndroidTestSources UP-TO-DATE
+:app:incrementalDebugAndroidTestJavaCompilationSafeguard UP-TO-DATE
+:app:compileDebugAndroidTestKotlin UP-TO-DATE
+:app:compileDebugAndroidTestJavaWithJavac UP-TO-DATE
+:app:copyDebugAndroidTestKotlinClasses UP-TO-DATE
+:app:compileDebugAndroidTestNdk UP-TO-DATE
+:app:compileDebugAndroidTestSources UP-TO-DATE
+:app:mergeDebugAndroidTestShaders UP-TO-DATE
+:app:compileDebugAndroidTestShaders UP-TO-DATE
+:app:generateDebugAndroidTestAssets UP-TO-DATE
+:app:mergeDebugAndroidTestAssets UP-TO-DATE
+:app:transformClassesWithDexForDebugAndroidTest UP-TO-DATE
+:app:mergeDebugAndroidTestJniLibFolders UP-TO-DATE
+:app:transformNative_libsWithMergeJniLibsForDebugAndroidTest UP-TO-DATE
+:app:processDebugAndroidTestJavaRes UP-TO-DATE
+:app:transformResourcesWithMergeJavaResForDebugAndroidTest UP-TO-DATE
+:app:validateSigningDebugAndroidTest
+:app:packageDebugAndroidTest UP-TO-DATE
+:app:assembleDebugAndroidTest UP-TO-DATE
+:app:connectedDebugAndroidTest

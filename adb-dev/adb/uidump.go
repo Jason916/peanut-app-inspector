@@ -20,15 +20,13 @@ import (
 func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 	sdkVersion := GetSDKVersion()
 	if sdkVersion != 21 {
-		dumpCommand := fmt.Sprintf("adb -s %s shell uiautomator dump /sdcard/uidump.xml", deviceId)
-		err = exec.Command("sh", "-c", dumpCommand).Run()
+		err = exec.Command("sh", "-c", dumpCommand("/sdcard/uidump.xml")).Run()
 		if err != nil {
 			return nil, err
 		}
 		MkDirIfNotExist(tempPath)
 		UIXmlPath := tempPath + "uidump.xml"
-		pullFileCommand := fmt.Sprintf("adb -s %s pull /sdcard/uidump.xml %s", deviceId, UIXmlPath)
-		err = exec.Command("sh", "-c", pullFileCommand).Run()
+		err = exec.Command("sh", "-c", pullFileCommand("/sdcard/uidump.xml", UIXmlPath)).Run()
 		if err != nil {
 			return nil, err
 		}
@@ -83,8 +81,7 @@ func Xml2json(xmlFile string) (string, error) {
 }
 
 func GetSDKVersion() (sdkVersion int) {
-	getSDKCommand := fmt.Sprintf("adb -s %s shell getprop ro.build.version.sdk", deviceId)
-	cmd := exec.Command("sh", "-c", getSDKCommand)
+	cmd := exec.Command("sh", "-c", getSDKCommand())
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return -1
@@ -95,11 +92,8 @@ func GetSDKVersion() (sdkVersion int) {
 }
 
 func StartRPCServer() (info string, err error) {
-	getUiautomatorCommand := fmt.Sprintf("adb -s %s shell pm list packages com.github.uiautomator", deviceId)
-	unInstallUCommand := fmt.Sprintf("adb -s %s shell pm uninstall com.github.uiautomator", deviceId)
-	unInstallUTestCommand := fmt.Sprintf("adb -s %s shell pm uninstall com.github.uiautomator.test", deviceId)
-	startServerCommand := fmt.Sprintf("adb forward tcp:9008 tcp:9008 && cd adb-dev/android-uiautomator-server/ && ./gradlew cC")
-	cmd := exec.Command("sh", "-c", getUiautomatorCommand)
+	startServerCommand := fmt.Sprintf("adb forward tcp:9008 tcp:9008 && cd adb-dev/android-uiautomator-server/ && ./gradlew cC > setup.log 2>&1 &")
+	cmd := exec.Command("sh", "-c", listPackagesCommand("com.github.uiautomator"))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return "", err
@@ -108,13 +102,13 @@ func StartRPCServer() (info string, err error) {
 	isInstalledU := strings.Contains(packageList, "com.github.uiautomator")
 	isInstalledUTest := strings.Contains(packageList, "com.github.uiautomator.test")
 	if isInstalledU {
-		err = exec.Command("sh", "-c", unInstallUCommand).Run()
+		err = exec.Command("sh", "-c", uninstallPackageCommand("com.github.uiautomator")).Run()
 		if err != nil {
 			return "uninstall com.github.uiautomator failed", err
 		}
 	}
 	if isInstalledUTest {
-		err = exec.Command("sh", "-c", unInstallUTestCommand).Run()
+		err = exec.Command("sh", "-c", uninstallPackageCommand("com.github.uiautomator.test")).Run()
 		if err != nil {
 			return "uninstall com.github.uiautomator.test failed", err
 		}
@@ -127,13 +121,19 @@ func StartRPCServer() (info string, err error) {
 }
 
 func IsServerStillAlive(packageName string) bool {
-	getPidCommand := fmt.Sprintf("adb -s %s shell ps | grep %s", deviceId, packageName)
-	cmd := exec.Command("sh", "-c", getPidCommand)
+	cmd := exec.Command("sh", "-c", getPidCommand(packageName))
+	cmd2 := exec.Command("sh", "-c", grepCommand("android-uiautomator-server"))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return false
 	}
-	alive := strings.Contains(string(out), packageName)
+	devicePidAlive := strings.Contains(string(out), packageName)
+	out2, err := cmd2.CombinedOutput()
+	if err != nil {
+		return false
+	}
+	pidAlive := strings.Contains(string(out2), "GradleWrapperMain cC")
+	alive := devicePidAlive && pidAlive
 	return alive
 }
 
