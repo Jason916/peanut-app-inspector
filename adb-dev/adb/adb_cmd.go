@@ -1,4 +1,4 @@
-//jasonxu-2018/3/6
+// jasonxu-2018/3/6
 package adb
 
 func adbCmd() string {
@@ -49,7 +49,10 @@ func pullFileCommand(fromFilePath, destImagePath string) string {
 	return adbCmd() + "pull " + fromFilePath + " " + destImagePath
 }
 
-func grepCommand(keyWord string) string {
-	return "ps -ef | grep " + keyWord
+func grepCommand(k string) string {
+	return "ps -ef | grep " + k
 }
 
+func grepFileCommand(k, setUpFilePath string) string {
+	return "grep -o " + k + " " + setUpFilePath + "| wc -l"
+}

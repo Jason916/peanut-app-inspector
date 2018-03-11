@@ -1,4 +1,4 @@
-//jasonxu-2018/1/10
+// jasonxu-2018/1/10
 package adb
 
 func GetDeviceId() string {

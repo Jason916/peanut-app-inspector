@@ -1,4 +1,4 @@
-//jasonxu-2017/10/12
+// jasonxu-2017/10/12
 package wda
 
 import (
@@ -33,7 +33,7 @@ func (c *Client) getResp(resp *http.Response, err error) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New("Bad statusCode with status:" + resp.Status)
+		return nil, errors.New("bad status code with status:" + resp.Status)
 	}
 	rb, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -59,7 +59,7 @@ func (c *Client) post(uri string, data []byte) ([]byte, error) {
 }
 
 func StartIProxy(udid, port string) {
-	iProxyCommand := fmt.Sprintf("iproxy %s %s %s", port, port, udid)
+	iProxyCommand := fmt.Sprintf("iproxy %s 8200 %s", port, udid)
 	err := exec.Command("sh", "-c", iProxyCommand).Start()
 	if err != nil {
 		log.Warning("start iProxy failed", err)

@@ -1,4 +1,4 @@
-//jasonxu-2018/1/15
+// jasonxu-2018/1/15
 package adb
 
 import (
@@ -39,15 +39,21 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		}
 		return jsonBody, nil
 	} else {
-		isAlive := IsServerStillAlive("com.github.uiautomator")
+		isAlive := isServerStillAlive("com.github.uiautomator")
 		url := "http://localhost:9008/jsonrpc/0"
 		data := "{\"params\": [false, null], \"jsonrpc\": \"2.0\",\"method\": \"dumpWindowHierarchy\",\"id\": \"1\"}"
 		if !isAlive {
-			StartRPCServer()
-			time.Sleep(time.Second * 40)
+			startRPCServer()
+			for i := 0; i < 10; i++ {
+				// condition check
+				if checkServerStart() {
+					break
+				}
+				time.Sleep(time.Second * 3)
+			}
 		}
 
-		res := PostReq(url, data)
+		res := postReq(url, data)
 		result := gjson.Get(string(res), "result")
 		r := bytes.NewReader([]byte(result.String()))
 
@@ -91,7 +97,7 @@ func GetSDKVersion() (sdkVersion int) {
 	return version
 }
 
-func StartRPCServer() (info string, err error) {
+func startRPCServer() (info string, err error) {
 	startServerCommand := fmt.Sprintf("adb forward tcp:9008 tcp:9008 && cd adb-dev/android-uiautomator-server/ && ./gradlew cC > setup.log 2>&1 &")
 	cmd := exec.Command("sh", "-c", listPackagesCommand("com.github.uiautomator"))
 	out, err := cmd.CombinedOutput()
@@ -120,7 +126,7 @@ func StartRPCServer() (info string, err error) {
 	return
 }
 
-func IsServerStillAlive(packageName string) bool {
+func isServerStillAlive(packageName string) bool {
 	cmd := exec.Command("sh", "-c", getPidCommand(packageName))
 	cmd2 := exec.Command("sh", "-c", grepCommand("android-uiautomator-server"))
 	out, err := cmd.CombinedOutput()
@@ -137,7 +143,21 @@ func IsServerStillAlive(packageName string) bool {
 	return alive
 }
 
-func PostReq(url string, data string) (res []byte) {
+func checkServerStart() bool {
+	cmd := exec.Command("sh", "-c", grepFileCommand("connectedDebugAndroidTest", "./android-uiautomator-server/setup.log"))
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		return false
+	}
+	c := strings.TrimSpace(string(out))
+	count, err := strconv.Atoi(c)
+	if count > 0 {
+		return true
+	}
+	return false
+}
+
+func postReq(url string, data string) (res []byte) {
 	var jsonStr = []byte(data)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")

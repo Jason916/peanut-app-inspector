@@ -74,3 +74,64 @@ Incremental java compilation is an incubating feature.
 :app:packageDebugAndroidTest UP-TO-DATE
 :app:assembleDebugAndroidTest UP-TO-DATE
 :app:connectedDebugAndroidTest
+
+com.github.uiautomator.stub.Stub > testUIAutomatorStub[Custom Phone - 5.0.0 - API 21 - 768x1280 - 5.0] [31mFAILED [0m
+Test failed to run to completion. Reason: 'Test run failed to complete. Expected 3 tests, received 2'. Check device logcat for details
+Tests on Custom Phone - 5.0.0 - API 21 - 768x1280 - 5.0 failed: Test run failed to complete. Expected 3 tests, received 2
+Unable to uninstall com.github.uiautomator.test
+com.android.ddmlib.InstallException: device '192.168.56.101:5555' not found
+	at com.android.ddmlib.Device.uninstallPackage(Device.java:1017)
+	at com.android.builder.testing.ConnectedDevice.uninstallPackage(ConnectedDevice.java:154)
+	at com.android.builder.internal.testing.SimpleTestCallable.uninstall(SimpleTestCallable.java:262)
+	at com.android.builder.internal.testing.SimpleTestCallable.call(SimpleTestCallable.java:244)
+	at com.android.builder.internal.testing.SimpleTestCallable.call(SimpleTestCallable.java:49)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: com.android.ddmlib.AdbCommandRejectedException: device '192.168.56.101:5555' not found
+	at com.android.ddmlib.AdbHelper.setDevice(AdbHelper.java:862)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:451)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:382)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:617)
+	at com.android.ddmlib.Device.uninstallPackage(Device.java:1011)
+	... 10 more
+null
+com.android.builder.testing.api.DeviceException: com.android.ddmlib.InstallException: device '192.168.56.101:5555' not found
+	at com.android.builder.testing.ConnectedDevice.uninstallPackage(ConnectedDevice.java:157)
+	at com.android.builder.internal.testing.SimpleTestCallable.uninstall(SimpleTestCallable.java:262)
+	at com.android.builder.internal.testing.SimpleTestCallable.call(SimpleTestCallable.java:244)
+	at com.android.builder.internal.testing.SimpleTestCallable.call(SimpleTestCallable.java:49)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: com.android.ddmlib.InstallException: device '192.168.56.101:5555' not found
+	at com.android.ddmlib.Device.uninstallPackage(Device.java:1017)
+	at com.android.builder.testing.ConnectedDevice.uninstallPackage(ConnectedDevice.java:154)
+	... 9 more
+Caused by: com.android.ddmlib.AdbCommandRejectedException: device '192.168.56.101:5555' not found
+	at com.android.ddmlib.AdbHelper.setDevice(AdbHelper.java:862)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:451)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:382)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:617)
+	at com.android.ddmlib.Device.uninstallPackage(Device.java:1011)
+	... 10 more
+:app:connectedDebugAndroidTest FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:connectedDebugAndroidTest'.
+> There were failing tests. See the report at: file:///Users/jasonxu/Desktop/other/learning/peanut-app-inspector/adb-dev/android-uiautomator-server/app/build/reports/androidTests/connected/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 4 mins 10.9 secs
