@@ -4,10 +4,10 @@ package main
 import (
 	"github.com/Jason916/peanut_core/handler"
 	"github.com/Jason916/peanut_core/log"
-	"./wda"
-	"./wda_handlers"
-	"./adb-dev/adb"
-	"./adb_handlers"
+	"github.com/Jason916/peanut-app-inspector/wda"
+	"github.com/Jason916/peanut-app-inspector/wda_handlers"
+	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
+	"github.com/Jason916/peanut-app-inspector/adb_handlers"
 	"flag"
 	"net/http"
 	"net"
@@ -16,7 +16,7 @@ import (
 )
 
 var iPort, iHost, listenPort, deviceID string
-var isIOSDevice, isRealIOSDevice bool
+var isiOSDevice, isRealiOSDevice bool
 
 func isRealIOS(udid string) bool {
 	udidLen := len(udid)
@@ -46,9 +46,12 @@ func main() {
 	if deviceID == "" {
 		log.Error("Please set device id")
 	}
-	isIOSDevice = isIOS(deviceID)
-	isRealIOSDevice = isRealIOS(deviceID)
-	if isRealIOSDevice {
+	isiOSDevice = isIOS(deviceID)
+	isRealiOSDevice = isRealIOS(deviceID)
+	//if isiOSDevice {
+	//	wda.StartWDA(deviceID)
+	//}
+	if isRealiOSDevice {
 		wda.StartIProxy(deviceID, iPort)
 	}
 
@@ -56,11 +59,11 @@ func main() {
 	mux := http.NewServeMux()
 	setHandlers(mux, iClient)
 
-	log.Error("ListenAndServe failed", http.ListenAndServe(net.JoinHostPort("", listenPort), mux))
+	log.Error("listen and serve failed", http.ListenAndServe(net.JoinHostPort("", listenPort), mux))
 }
 
 func setHandlers(mux *http.ServeMux, iClient *wda.Client) {
-	if isIOSDevice {
+	if isiOSDevice {
 		mux.Handle("/", handler.NewHandler(wda_handlers.NewIndex()))
 		mux.Handle("/screenShot", handler.NewHandler(wda_handlers.NewScreenShotHandler(iClient)))
 		mux.Handle("/sourceTree", handler.NewHandler(wda_handlers.NewSourceHandler(iClient)))

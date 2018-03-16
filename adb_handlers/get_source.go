@@ -5,7 +5,7 @@ import (
 	"github.com/Jason916/peanut_core/json"
 	"github.com/Jason916/peanut_core/log"
 	"net/http"
-	"../adb-dev/adb"
+	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
 	"github.com/bitly/go-simplejson"
 )
 

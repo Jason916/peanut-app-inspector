@@ -44,12 +44,12 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		data := "{\"params\": [false, null], \"jsonrpc\": \"2.0\",\"method\": \"dumpWindowHierarchy\",\"id\": \"1\"}"
 		if !isAlive {
 			startRPCServer()
-			for i := 0; i < 10; i++ {
+			for i := 0; i < 60; i++ {
 				// condition check
-				if checkServerStart() {
+				if checkServerStart() && isServerStillAlive("com.github.uiautomator") {
 					break
 				}
-				time.Sleep(time.Second * 3)
+				time.Sleep(time.Second * 2)
 			}
 		}
 
@@ -119,9 +119,12 @@ func startRPCServer() (info string, err error) {
 			return "uninstall com.github.uiautomator.test failed", err
 		}
 	}
-	err = exec.Command("sh", "-c", startServerCommand).Start()
-	if err != nil {
-		return "start server failed", err
+	c := exec.Command("sh", "-c", startServerCommand)
+	if err := c.Start(); err != nil {
+		log.Warning("start server failed", err)
+	}
+	if err := c.Wait(); err != nil {
+		log.Warning("command complete failed", err)
 	}
 	return
 }
@@ -144,7 +147,7 @@ func isServerStillAlive(packageName string) bool {
 }
 
 func checkServerStart() bool {
-	cmd := exec.Command("sh", "-c", grepFileCommand("connectedDebugAndroidTest", "./android-uiautomator-server/setup.log"))
+	cmd := exec.Command("sh", "-c", grepFileCommand("connectedDebugAndroidTest", "./adb-dev/android-uiautomator-server/setup.log"))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return false

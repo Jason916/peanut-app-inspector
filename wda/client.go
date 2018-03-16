@@ -10,6 +10,7 @@ import (
 	"time"
 	"os/exec"
 	"github.com/Jason916/peanut_core/log"
+	//"path/filepath"
 )
 
 const StatusOK = 0
@@ -66,4 +67,20 @@ func StartIProxy(udid, port string) {
 		return
 	}
 	time.Sleep(time.Second * 2)
+}
+
+func StartWDA(udid string){
+	c := exec.Command("xcodebuild",
+		"-verbose",
+		"-project", "WebDriverAgent.xcodeproj",
+		"-scheme", "WebDriverAgentRunner",
+		"-destination", "id=" + udid, "test")
+	//c.Dir, _ = filepath.Abs("../vendor/github.com/Jason916/WebDriverAgent")
+	if err := c.Start(); err != nil {
+		log.Warning("start wda failed", err)
+	}
+	//if err := c.Wait(); err != nil{
+	//	log.Warning("command complete failed", err)
+	//}
+//	//xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination "id=70c8b50723e361170dbbec2d158d395bfb6e849d" test
 }

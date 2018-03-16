@@ -3,7 +3,7 @@ package wda_handlers
 
 import (
 	"github.com/Jason916/peanut_core/json"
-	"../wda"
+	"github.com/Jason916/peanut-app-inspector/wda"
 	"errors"
 	"net/http"
 	"log"

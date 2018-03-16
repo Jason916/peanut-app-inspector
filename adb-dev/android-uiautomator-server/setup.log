@@ -127,11 +127,11 @@ FAILURE: Build failed with an exception.
 
 * What went wrong:
 Execution failed for task ':app:connectedDebugAndroidTest'.
-> There were failing tests. See the report at: file:///Users/jasonxu/Desktop/other/learning/peanut-app-inspector/adb-dev/android-uiautomator-server/app/build/reports/androidTests/connected/index.html
+> There were failing tests. See the report at: file:///Users/jasonxu/Desktop/other/learning/src/github.com/Jason916/peanut-app-inspector/adb-dev/android-uiautomator-server/app/build/reports/androidTests/connected/index.html
 
 * Try:
 Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
 
 BUILD FAILED
 
-Total time: 4 mins 10.9 secs
+Total time: 15 mins 59.233 secs

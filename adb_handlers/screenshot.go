@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"github.com/Jason916/peanut_core/log"
 	"github.com/Jason916/peanut_core/json"
-	"../adb-dev/adb"
+	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
 )
 
 type ScreenShotHandler struct {
