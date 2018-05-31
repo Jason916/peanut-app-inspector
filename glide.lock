@@ -1,14 +1,18 @@
-hash: 60bf09b7f1e4fe0f38afb4d10728b62d95317594337b061b4f174895585913e9
-updated: 2018-03-15T11:27:13.767876+08:00
+hash: f8e900042051ee6b9724207da6ae6be4d56ffbbb2a5fa526de60991e00a697cb
+updated: 2018-05-08T23:51:28.608295+08:00
 imports:
 - name: github.com/bitly/go-simplejson
   version: aabad6e819789e569bd6aabf444c935aa9ba1e44
+- name: github.com/Jason916/android-uiautomator-server
+  version: 174f8da9aca70710c2630615c8411f9cc4084cc1
 - name: github.com/Jason916/peanut_core
   version: 2a9a19802291e8c5283c308ca93157a1d319773d
   subpackages:
   - handler
   - json
   - log
+- name: github.com/Jason916/WebDriverAgent
+  version: 1b0c2b5228b87fe87c82ae654e00dd44904047d1
 - name: github.com/Jason916/x2j
   version: 47449bb96533dbc86728fac7a0b68d0404ede909
 - name: github.com/tidwall/gjson

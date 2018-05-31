@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"strings"
 	"errors"
-	"github.com/Jason916/peanut-app-inspector/wda"
 	"log"
+
+	"github.com/Jason916/peanut-app-inspector/wda"
 	"github.com/Jason916/peanut_core/json"
 )
 

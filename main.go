@@ -2,17 +2,18 @@
 package main
 
 import (
+	"flag"
+	"net/http"
+	"net"
+	"fmt"
+	"strings"
+
 	"github.com/Jason916/peanut_core/handler"
 	"github.com/Jason916/peanut_core/log"
 	"github.com/Jason916/peanut-app-inspector/wda"
 	"github.com/Jason916/peanut-app-inspector/wda_handlers"
 	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
 	"github.com/Jason916/peanut-app-inspector/adb_handlers"
-	"flag"
-	"net/http"
-	"net"
-	"fmt"
-	"strings"
 )
 
 var iPort, iHost, listenPort, deviceID string
@@ -48,11 +49,13 @@ func main() {
 	}
 	isiOSDevice = isIOS(deviceID)
 	isRealiOSDevice = isRealIOS(deviceID)
-	//if isiOSDevice {
-	//	wda.StartWDA(deviceID)
-	//}
+
 	if isRealiOSDevice {
 		wda.StartIProxy(deviceID, iPort)
+	}
+
+	if isiOSDevice {
+		wda.StartWDA(deviceID, iHost, iPort)
 	}
 
 	iClient := wda.NewClient(iHost, iPort)

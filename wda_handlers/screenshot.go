@@ -2,11 +2,12 @@
 package wda_handlers
 
 import (
-	"github.com/Jason916/peanut_core/json"
-	"github.com/Jason916/peanut-app-inspector/wda"
 	"errors"
 	"net/http"
 	"log"
+
+	"github.com/Jason916/peanut_core/json"
+	"github.com/Jason916/peanut-app-inspector/wda"
 )
 
 type ScreenShotHandler struct {

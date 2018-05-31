@@ -53,6 +53,6 @@ func grepCommand(k string) string {
 	return "ps -ef | grep " + k
 }
 
-func grepFileCommand(k, setUpFilePath string) string {
+func GrepFileCommand(k, setUpFilePath string) string {
 	return "grep -o " + k + " " + setUpFilePath + "| wc -l"
 }

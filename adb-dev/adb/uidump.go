@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"net/http"
 	"time"
+
 	"github.com/Jason916/x2j"
 	"github.com/Jason916/peanut_core/log"
 	"github.com/tidwall/gjson"
@@ -53,7 +54,7 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 			}
 		}
 
-		res := postReq(url, data)
+		res, _ := postReq(url, data)
 		result := gjson.Get(string(res), "result")
 		r := bytes.NewReader([]byte(result.String()))
 
@@ -98,7 +99,7 @@ func GetSDKVersion() (sdkVersion int) {
 }
 
 func startRPCServer() (info string, err error) {
-	startServerCommand := fmt.Sprintf("adb forward tcp:9008 tcp:9008 && cd adb-dev/android-uiautomator-server/ && ./gradlew cC > setup.log 2>&1 &")
+	startServerCommand := fmt.Sprintf("adb -s %s forward tcp:9008 tcp:9008 && cd vendor/github.com/Jason916/android-uiautomator-server/ && ./gradlew cC > setup.log 2>&1 &", deviceId)
 	cmd := exec.Command("sh", "-c", listPackagesCommand("com.github.uiautomator"))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
@@ -147,7 +148,8 @@ func isServerStillAlive(packageName string) bool {
 }
 
 func checkServerStart() bool {
-	cmd := exec.Command("sh", "-c", grepFileCommand("connectedDebugAndroidTest", "./adb-dev/android-uiautomator-server/setup.log"))
+	setUpLogPath := "./vendor/github.com/Jason916/android-uiautomator-server/setup.log"
+	cmd := exec.Command("sh", "-c", GrepFileCommand("connectedDebugAndroidTest", setUpLogPath))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return false
@@ -160,18 +162,18 @@ func checkServerStart() bool {
 	return false
 }
 
-func postReq(url string, data string) (res []byte) {
+func postReq(url string, data string) ([]byte, error) {
 	var jsonStr = []byte(data)
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := http.Post(url, "application/json; charset=UTF-8", bytes.NewBuffer(jsonStr))
 	if err != nil {
-		panic(err)
+		log.Warning("bad request", err)
 	}
-	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
-	return body
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }

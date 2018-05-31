@@ -2,8 +2,8 @@
 package wda
 
 import (
-	"encoding/json"
 	"log"
+	"encoding/json"
 )
 
 type SessionResponse struct {

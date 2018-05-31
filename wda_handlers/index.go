@@ -2,8 +2,9 @@
 package wda_handlers
 
 import (
-	"html/template"
 	"net/http"
+	"html/template"
+
 	"github.com/Jason916/peanut_core/log"
 )
 
@@ -21,11 +22,11 @@ func (h *IndexHandler) getIndex()(*template.Template, error){
 func (h *IndexHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request){
 	temp, err := h.getIndex()
 	if err != nil{
-		log.Error(err.Error())
+		log.Warning("get index failed", err.Error())
 	}
 	var data interface{}
 	err = temp.Execute(rw, data)
 	if err != nil{
-		log.Error(err.Error())
+		log.Warning("render index failed", err.Error())
 	}
 }
