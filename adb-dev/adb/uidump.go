@@ -70,6 +70,7 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		}
 		return jsonBody, nil
 	}
+	log.Success("app inspector started")
 	return
 }
 

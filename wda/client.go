@@ -74,8 +74,8 @@ func StartIProxy(udid, port string) {
 }
 
 func uninstallWDA(udid string) bool {
-	Command := fmt.Sprintf("ideviceinstaller -u %s -l | grep WebDriverAgentRunner-Runner | wc -l", udid)
-	UninstallCommand := fmt.Sprintf("ideviceinstaller -U com.apple.test.WebDriverAgentRunner-Runner -o %s", udid)
+	Command := fmt.Sprintf("ideviceinstaller -u %s -l | grep WDARunner-Runner | wc -l", udid)
+	UninstallCommand := fmt.Sprintf("ideviceinstaller -U com.apple.test.WDARunner-Runner -o %s", udid)
 	cmd := exec.Command("sh", "-c", Command)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
@@ -87,7 +87,7 @@ func uninstallWDA(udid string) bool {
 		ucmd := exec.Command("sh", "-c", UninstallCommand)
 		out, err := ucmd.CombinedOutput()
 		if err != nil {
-			log.Warning("uninstall com.apple.test.WebDriverAgentRunner-Runner failed", err)
+			log.Warning("uninstall com.apple.test.WDARunner-Runner failed", err)
 			return false
 		}
 		log.Info("info:", string(out))
@@ -95,7 +95,7 @@ func uninstallWDA(udid string) bool {
 	return true
 }
 
-func StartWDA(udid, ihost, iport string) {
+func StartWDA(udid, ihost, iport string, isRealiOSDevice bool) {
 	Command := fmt.Sprintf("xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'id=%s' test > WdaSetup.log 2>&1 &", udid)
 	c := exec.Command("sh", "-c", Command)
 	c.Dir, _ = filepath.Abs("./vendor/github.com/Jason916/WebDriverAgent")
@@ -114,14 +114,25 @@ func StartWDA(udid, ihost, iport string) {
 	if err := c.Wait(); err != nil {
 		log.Warning("command complete failed", err)
 	}
-	// 失败 则真机卸载后重试安装 模拟器直接重试安装
-	//	//xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination "id=70c8b50723e361170dbbec2d158d395bfb6e849d" test
+
+	if !isRealiOSDevice {
+		rc := exec.Command("sh", "-c", Command)
+		rc.Dir, _ = filepath.Abs("./vendor/github.com/Jason916/WebDriverAgent")
+		kc := exec.Command("sh", "-c", adb.KillAll("xcodebuild"))
+		kc.Run()
+		time.Sleep(time.Second * 3)
+		if err := rc.Start(); err != nil {
+			log.Error("start wda failed", err)
+		}
+		log.Success("app inspector started")
+	}
+
 }
 
 func checkWdaStart(h, p string) bool {
 	wdaLogPath := "./vendor/github.com/Jason916/WebDriverAgent/WdaSetup.log"
 	cmd := exec.Command("sh", "-c", adb.GrepFileCommand("Successfully\\ wrote", wdaLogPath))
-	cmd1 := exec.Command("sh", "-c", adb.GrepFileCommand("ServerURLHere", wdaLogPath))
+	sc := exec.Command("sh", "-c", adb.GrepFileCommand("ServerURLHere", wdaLogPath))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return false
@@ -129,11 +140,11 @@ func checkWdaStart(h, p string) bool {
 	c := strings.TrimSpace(string(out))
 	count, err := strconv.Atoi(c)
 	if count > 0 {
-		_, err := http.Get("http://"+h+":"+p+"/status")
+		_, err := http.Get("http://" + h + ":" + p + "/status")
 		if err != nil {
 			log.Warning("get status failed,retrying")
 		}
-		out, err := cmd1.CombinedOutput()
+		out, err := sc.CombinedOutput()
 		fmt.Println(string(out))
 		if err != nil {
 			return false

@@ -55,7 +55,7 @@ func main() {
 	}
 
 	if isiOSDevice {
-		wda.StartWDA(deviceID, iHost, iPort)
+		wda.StartWDA(deviceID, iHost, iPort, isRealiOSDevice)
 	}
 
 	iClient := wda.NewClient(iHost, iPort)

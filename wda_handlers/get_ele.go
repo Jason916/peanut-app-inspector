@@ -103,7 +103,7 @@ func (h *GetElementHandler) ServeHTTP(resp http.ResponseWriter, req *http.Reques
 	res.Value.Width = elementRect.Value.Width
 	res.Value.X = elementRect.Value.X
 	res.Value.Y = elementRect.Value.Y
-	res.Status = res.Status
+	res.Status = elementInfo.Status
 
 	if res.Type == TypeOther && elementRect.IsAvailable() {
 		json.Json(resp, http.StatusBadRequest, json.NewErrorMsg("element can not be found"))
