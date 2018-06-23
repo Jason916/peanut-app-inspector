@@ -15,14 +15,6 @@ type GetElementHandler struct {
 	WdaClient *wda.Client
 }
 
-type GetElementResponse struct {
-	*wda.RectResponse
-}
-
-type TypeResponse struct {
-	*wda.GetEleTypeResp
-}
-
 type Response struct {
 	Value struct {
 		X      float32 `json:"x"`
@@ -30,8 +22,8 @@ type Response struct {
 		Width  float32 `json:"width"`
 		Height float32 `json:"height"`
 	} `json:"value"`
-	Type   string  `json:"type"`
-	Status int `json:"status"`
+	Type   string `json:"type"`
+	Status int    `json:"status"`
 }
 
 const (

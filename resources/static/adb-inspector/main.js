@@ -256,6 +256,8 @@
                             error: function (jqXHR) {
                                 if (jqXHR.status === 400) {
                                     options.notFound(locator);
+                                } else if (jqXHR.status === 418) {
+                                    options.nonSupport();
                                 } else {
                                     options.error(locator);
                                 }
@@ -279,11 +281,9 @@
         module.exports = '<form class="navbar-form navbar-right" id="search-form">' +
             '<div class="form-group">' +
             '<select name="using" class="form-control">' +
-            '<option value="xpath">Xpath</option>' +
-            '<option value="predicate string">Predicate string</option>' +
-            '<option value="class name">Class name</option>' +
-            '<option value="link text">Link text</option>' +
-            '<option value="partial link text">Partial link text</option>' +
+            '<option value="resource-id">Resource id</option>' +
+            '<option value="content-desc">Content desc</option>' +
+            '<option value="text">Text</option>' +
             '</select>' +
             '</div>' +
             '<div class="form-group">' +
@@ -372,7 +372,7 @@
                             }
 
                         }
-                        var key = $(li).children("span").first().children("strong").text()+ '[' + index + ']';
+                        var key = $(li).children("span").first().children("strong").text() + '[' + index + ']';
 
                         return {
                             key: key,
@@ -402,14 +402,14 @@
             var _buildList = function (elements) {
                 var $list = $('<ul />');
 
-                if (elements instanceof Array){
+                if (elements instanceof Array) {
 
                     for (var i = 0; i < elements.length; ++i) {
                         var item = elements[i];
                         var $li = itemAssemble(item);
                         $list.append($li);
                     }
-                }else if(elements instanceof Object){
+                } else if (elements instanceof Object) {
                     var oitem = elements;
                     var $oli = itemAssemble(oitem);
                     $list.append($oli);
@@ -462,9 +462,9 @@
                 _render($list);
             };
 
-            this.select = function (bounds, type) {
+            this.select = function (bounds) {
                 $el
-                    .find(".el-type[data-bound='" + bounds + "'] > :contains(" + type + ")")
+                    .find(".el-type[data-bound='" + bounds + "']")
                     .click();
             };
 
@@ -557,7 +557,7 @@
                     bounds[3]
                 );
                 screen.highlightSelection();
-                mergeJsonObject = function(json1, json2) {
+                mergeJsonObject = function (json1, json2) {
                     var resultJson = {};
                     for (var attr in json1) {
                         resultJson[attr] = json1[attr];
@@ -567,7 +567,7 @@
                     }
                     return resultJson;
                 };
-                var newJsonObject = mergeJsonObject(infoData, { xpath: path });
+                var newJsonObject = mergeJsonObject(infoData, {xpath: path});
                 info.update(newJsonObject);
             });
             $.ajax({
@@ -591,10 +591,21 @@
             var search = new Search($('#navbar'), {
                 url: '/eleInfo',
                 success: function (data) {
-                    tree.select(data.value, data.type);
+                    const bounds = data.match(/[\d\.]+/g);
+                    data = [
+                        ~~bounds[0],
+                        ~~bounds[1],
+                        bounds[2] - bounds[0],
+                        bounds[3] - bounds[1],
+                    ];
+
+                    tree.select(data);
                 },
                 notFound: function (locator) {
                     info.error(locator + ' not found!');
+                },
+                nonSupport: function () {
+                    info.error('sorry, nonsupport SDK 21');
                 },
                 error: function (locator) {
                     info.error("can't find element by locator: [" + locator + "]");

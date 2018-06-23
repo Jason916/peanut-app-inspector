@@ -8,8 +8,7 @@ import (
 	"github.com/Jason916/peanut_core/log"
 )
 
-type IndexHandler struct {
-}
+type IndexHandler struct{}
 
 func NewIndex() *IndexHandler {
 	return &IndexHandler{}

@@ -1,10 +1,12 @@
-hash: f8e900042051ee6b9724207da6ae6be4d56ffbbb2a5fa526de60991e00a697cb
-updated: 2018-05-08T23:51:28.608295+08:00
+hash: b058f5ac117ae03c85364b3e27d5656ad451af1019db7bf38a5955e9336fe43d
+updated: 2018-06-23T00:38:28.419725+08:00
 imports:
 - name: github.com/bitly/go-simplejson
   version: aabad6e819789e569bd6aabf444c935aa9ba1e44
 - name: github.com/Jason916/android-uiautomator-server
   version: 174f8da9aca70710c2630615c8411f9cc4084cc1
+- name: github.com/Jason916/jsonStreamer
+  version: f4e7a316637778e611dd4ed52f5fdd80dc619b97
 - name: github.com/Jason916/peanut_core
   version: 2a9a19802291e8c5283c308ca93157a1d319773d
   subpackages:
@@ -15,8 +17,6 @@ imports:
   version: 1b0c2b5228b87fe87c82ae654e00dd44904047d1
 - name: github.com/Jason916/x2j
   version: 47449bb96533dbc86728fac7a0b68d0404ede909
-- name: github.com/tidwall/gjson
-  version: 01f00f129617a6fe98941fb920d6c760241b54d2
-- name: github.com/tidwall/match
-  version: 1731857f09b1f38450e2c12409748407822dc6be
+- name: github.com/Jason916/xml2json
+  version: c3ee2d561cfd9eb6e376e22fe9f435693960f77a
 testImports: []

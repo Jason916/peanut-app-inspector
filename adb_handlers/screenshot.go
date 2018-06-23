@@ -9,8 +9,7 @@ import (
 	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
 )
 
-type ScreenShotHandler struct {
-}
+type ScreenShotHandler struct{}
 
 type ScreenShotResp struct {
 	ScreenImg string `json:"img"`

@@ -79,6 +79,7 @@ func setHandlers(mux *http.ServeMux, iClient *wda.Client) {
 		mux.Handle("/", handler.NewHandler(adb_handlers.NewIndex()))
 		mux.Handle("/screenShot", handler.NewHandler(adb_handlers.NewScreenShotHandler()))
 		mux.Handle("/sourceTree", handler.NewHandler(adb_handlers.NewSourceHandler()))
+		mux.Handle("/eleInfo", handler.NewHandler(adb_handlers.NewGetElementHandler()))
 		mux.Handle("/static/", wda_handlers.NewStaticHandler())
 	}
 }

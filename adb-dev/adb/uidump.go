@@ -13,9 +13,8 @@ import (
 	"time"
 
 	"github.com/Jason916/x2j"
-	"github.com/Jason916/peanut_core/log"
-	"github.com/tidwall/gjson"
 	"github.com/bitly/go-simplejson"
+	"github.com/Jason916/peanut_core/log"
 )
 
 func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
@@ -25,8 +24,8 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		if err != nil {
 			return nil, err
 		}
-		MkDirIfNotExist(tempPath)
-		UIXmlPath := tempPath + "uidump.xml"
+		MkDirIfNotExist(TempPath)
+		UIXmlPath := TempPath + "uidump.xml"
 		err = exec.Command("sh", "-c", pullFileCommand("/sdcard/uidump.xml", UIXmlPath)).Run()
 		if err != nil {
 			return nil, err
@@ -38,6 +37,7 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		if err != nil {
 			return nil, err
 		}
+		log.Success("app inspector succ")
 		return jsonBody, nil
 	} else {
 		isAlive := isServerStillAlive("com.github.uiautomator")
@@ -55,9 +55,13 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		}
 
 		res, _ := postReq(url, data)
-		result := gjson.Get(string(res), "result")
-		r := bytes.NewReader([]byte(result.String()))
 
+		js, err := simplejson.NewJson(res)
+		if err != nil {
+			return nil, err
+		}
+		result, _ := js.Get("result").Bytes()
+		r := bytes.NewReader(result)
 		jsonOut, err := x2j.ToJsonIndent(r, false)
 		if err != nil {
 			log.Warning("to json failed", err)
@@ -68,9 +72,9 @@ func DumpUIXml() (jsonInfo *simplejson.Json, err error) {
 		if err != nil {
 			return nil, err
 		}
+		log.Success("app inspector succ")
 		return jsonBody, nil
 	}
-	log.Success("app inspector started")
 	return
 }
 

@@ -6,12 +6,11 @@ import (
 
 	"github.com/Jason916/peanut_core/json"
 	"github.com/Jason916/peanut_core/log"
-	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
 	"github.com/bitly/go-simplejson"
+	"github.com/Jason916/peanut-app-inspector/adb-dev/adb"
 )
 
-type SourceHandler struct {
-}
+type SourceHandler struct{}
 
 type SourceResp struct {
 	*simplejson.Json

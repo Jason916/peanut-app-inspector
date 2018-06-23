@@ -5,8 +5,7 @@ import (
 	"net/http"
 )
 
-type StaticHandler struct {
-}
+type StaticHandler struct{}
 
 func NewStaticHandler() *StaticHandler {
 	return &StaticHandler{}

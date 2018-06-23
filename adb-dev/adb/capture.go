@@ -5,15 +5,15 @@ import (
 	"os/exec"
 )
 
-const tempPath = ".temp/"
+const TempPath = ".temp/"
 
 func ScreenCapture() (img string, err error) {
 	err = exec.Command("sh", "-c", captureCommand("/sdcard/", "screenshot")).Run()
 	if err != nil {
 		return "", err
 	}
-	MkDirIfNotExist(tempPath)
-	destImagePath := tempPath + "screenshot.png"
+	MkDirIfNotExist(TempPath)
+	destImagePath := TempPath + "screenshot.png"
 	err = exec.Command("sh", "-c", pullFileCommand("/sdcard/screenshot.png", destImagePath)).Run()
 	if err != nil {
 		return "", err
