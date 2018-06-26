@@ -7,6 +7,8 @@ import (
 	"net"
 	"fmt"
 	"strings"
+	"runtime"
+	"os/exec"
 
 	"github.com/Jason916/peanut_core/handler"
 	"github.com/Jason916/peanut_core/log"
@@ -36,6 +38,28 @@ func isIOS(udid string) bool {
 	return false
 }
 
+func openBrowser() {
+	var openShell string
+	sysInfo := runtime.GOOS
+	switch sysInfo {
+	case "darwin":
+		openShell = "open"
+	case "win32":
+		openShell = "start"
+	case "linux":
+		openShell = "xdg-open"
+	default:
+		fmt.Println("default")
+	}
+	openBrowserCommand := fmt.Sprintf("%s http://127.0.0.1:8086", openShell)
+	err := exec.Command("sh", "-c", openBrowserCommand).Run()
+	if err != nil {
+		log.Warning("open browser failed:", err.Error())
+		return
+	}
+	log.Success("open browser succ on local")
+}
+
 func main() {
 	flag.StringVar(&iPort, "p", "8200", "WDA port, 8200 by default")
 	flag.StringVar(&iHost, "h", "127.0.0.1", "WDA host, 127.0.0.1 by default ")
@@ -47,6 +71,7 @@ func main() {
 	if deviceID == "" {
 		log.Error("Please set device id")
 	}
+
 	isiOSDevice = isIOS(deviceID)
 	isRealiOSDevice = isRealIOS(deviceID)
 
@@ -82,4 +107,5 @@ func setHandlers(mux *http.ServeMux, iClient *wda.Client) {
 		mux.Handle("/eleInfo", handler.NewHandler(adb_handlers.NewGetElementHandler()))
 		mux.Handle("/static/", wda_handlers.NewStaticHandler())
 	}
+	openBrowser()
 }
