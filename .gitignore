@@ -21,7 +21,6 @@ Thumbs.db
 .log
 .temp
 pkg
-src
 vendor
 node_modules
 peanut-app-inspector
