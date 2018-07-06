@@ -53,7 +53,7 @@ func grepCommand(k string) string {
 	return "ps -ef | grep " + k
 }
 
-func KillAll(k string) string{
+func KillAll(k string) string {
 	return "killall " + k
 }
 

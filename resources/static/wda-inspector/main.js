@@ -109,7 +109,7 @@
             var currentScreenRate = 0;
 
             var getScreenRate = function (width) {
-                return width > 1000 ? 1/3 : 0.5;
+                return width > 1000 ? 1 / 3 : 0.5;
             };
 
             var _render = function ($content) {
@@ -359,7 +359,7 @@
                                 }
 
                             }
-                            var key = $(li).children("span").first().children("strong").text()+ '[' + index + ']';
+                            var key = $(li).children("span").first().children("strong").text() + '[' + index + ']';
 
                             return {
                                 key: key,
@@ -443,7 +443,7 @@
 
             this.select = function (rect, type) {
                 $el
-                    .find(".el-type[data-rect='" + JSON.stringify(rect) + "'] > :contains(" + "XCUIElementType"+ type + ")")
+                    .find(".el-type[data-rect='" + JSON.stringify(rect) + "'] > :contains(" + "XCUIElementType" + type + ")")
                     .click();
             };
 
@@ -536,7 +536,7 @@
                     rect.height
                 );
                 screen.highlightSelection();
-                mergeJsonObject = function(json1, json2) {
+                mergeJsonObject = function (json1, json2) {
                     var resultJson = {};
                     for (var attr in json1) {
                         resultJson[attr] = json1[attr];
@@ -546,7 +546,7 @@
                     }
                     return resultJson;
                 };
-                var newJsonObject = mergeJsonObject(infoData, { xpath: path });
+                var newJsonObject = mergeJsonObject(infoData, {xpath: path});
                 info.update(newJsonObject);
             });
             $.ajax({

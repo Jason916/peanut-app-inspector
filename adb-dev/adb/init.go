@@ -9,6 +9,6 @@ var (
 	deviceId string
 )
 
-func InitDevice(currentDeviceId string){
+func InitDevice(currentDeviceId string) {
 	deviceId = currentDeviceId
 }

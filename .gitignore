@@ -4,7 +4,8 @@ compiled source #
 *.class  
 *.dll  
 *.exe  
-*.o  
+*.o
+*.a
 *.so  
 
 # OS generated files #  
@@ -24,3 +25,20 @@ src
 vendor
 node_modules
 peanut-app-inspector
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+*.exe
+*.test
+*.prof
+*.coverprofile

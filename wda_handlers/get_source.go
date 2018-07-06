@@ -22,12 +22,12 @@ func NewSourceHandler(c *wda.Client) *SourceHandler {
 	return &SourceHandler{WdaClient: c}
 }
 
-func (h *SourceHandler) getSource()(*wda.Source, error){
+func (h *SourceHandler) getSource() (*wda.Source, error) {
 	source, err := h.WdaClient.GetJsonSource()
 	if err != nil {
 		return nil, err
 	}
-	if source.Status != wda.StatusOK{
+	if source.Status != wda.StatusOK {
 		return nil, errors.New("bad request~")
 	}
 	return source, nil

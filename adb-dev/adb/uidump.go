@@ -154,13 +154,12 @@ func isServerStillAlive(packageName string) bool {
 
 func checkServerStart() bool {
 	setUpLogPath := "./vendor/github.com/Jason916/android-uiautomator-server/setup.log"
-	cmd := exec.Command("sh", "-c", GrepFileCommand("connectedDebugAndroidTest", setUpLogPath))
-	out, err := cmd.CombinedOutput()
+	f, err := ioutil.ReadFile(setUpLogPath)
 	if err != nil {
-		return false
+		log.Warning("read file failed", err)
 	}
-	c := strings.TrimSpace(string(out))
-	count, err := strconv.Atoi(c)
+	count := strings.Count(string(f), ":app:connectedDebugAndroidTest")
+
 	if count > 0 {
 		return true
 	}

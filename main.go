@@ -51,7 +51,7 @@ func openBrowser() {
 	default:
 		fmt.Println("default")
 	}
-	openBrowserCommand := fmt.Sprintf("%s http://127.0.0.1:8086", openShell)
+	openBrowserCommand := fmt.Sprintf("%s http://127.0.0.1:%s", openShell, listenPort)
 	err := exec.Command("sh", "-c", openBrowserCommand).Run()
 	if err != nil {
 		log.Warning("open browser failed:", err.Error())
@@ -80,11 +80,12 @@ func main() {
 	}
 
 	if isiOSDevice {
-		wda.StartWDA(deviceID, iHost, iPort, isRealiOSDevice)
+		wda.StartWDA(deviceID, iHost, iPort)
 	}
 
 	iClient := wda.NewClient(iHost, iPort)
 	mux := http.NewServeMux()
+	openBrowser()
 	setHandlers(mux, iClient)
 
 	log.Error("listen and serve failed", http.ListenAndServe(net.JoinHostPort("", listenPort), mux))
@@ -107,5 +108,4 @@ func setHandlers(mux *http.ServeMux, iClient *wda.Client) {
 		mux.Handle("/eleInfo", handler.NewHandler(adb_handlers.NewGetElementHandler()))
 		mux.Handle("/static/", wda_handlers.NewStaticHandler())
 	}
-	openBrowser()
 }

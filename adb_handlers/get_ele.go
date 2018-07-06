@@ -97,8 +97,7 @@ func (*GetElementHandler) findEle(using, value string) (elementInfo string, err 
 func readXmlFile(path string) string {
 	f, err := ioutil.ReadFile(path)
 	if err != nil {
-		fmt.Printf("%s\n", err)
-		panic(err)
+		log.Warning("read xml file failed", err)
 	}
 	return string(f)
 }

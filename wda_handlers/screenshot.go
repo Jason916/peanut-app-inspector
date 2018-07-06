@@ -14,7 +14,7 @@ type ScreenShotHandler struct {
 	WdaClient *wda.Client
 }
 
-type ScreenShotResp struct{
+type ScreenShotResp struct {
 	ScreenImg string `json:"img"`
 }
 
@@ -33,9 +33,9 @@ func (h *ScreenShotHandler) screenShot() (*wda.ScreenShotInfo, error) {
 	return resp, nil
 }
 
-func (h *ScreenShotHandler)ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+func (h *ScreenShotHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	ss, err := h.screenShot()
-	if err == nil{
+	if err == nil {
 		data := &ScreenShotResp{ScreenImg: ss.Value}
 		json.Json(rw, http.StatusOK, data)
 	} else {

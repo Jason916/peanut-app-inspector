@@ -95,7 +95,7 @@ func uninstallWDA(udid string) bool {
 	return true
 }
 
-func StartWDA(udid, ihost, iport string, isRealiOSDevice bool) {
+func StartWDA(udid, ihost, iport string) {
 	Command := fmt.Sprintf("xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'id=%s' test > WdaSetup.log 2>&1 &", udid)
 	c := exec.Command("sh", "-c", Command)
 	c.Dir, _ = filepath.Abs("./vendor/github.com/Jason916/WebDriverAgent")
@@ -115,42 +115,39 @@ func StartWDA(udid, ihost, iport string, isRealiOSDevice bool) {
 		log.Warning("command complete failed", err)
 	}
 
-	if !isRealiOSDevice {
-		rc := exec.Command("sh", "-c", Command)
-		rc.Dir, _ = filepath.Abs("./vendor/github.com/Jason916/WebDriverAgent")
-		kc := exec.Command("sh", "-c", adb.KillAll("xcodebuild"))
-		kc.Run()
-		time.Sleep(time.Second * 3)
-		if err := rc.Start(); err != nil {
-			log.Error("start wda failed", err)
-		}
-		log.Success("app inspector started")
+	rc := exec.Command("sh", "-c", Command)
+	rc.Dir, _ = filepath.Abs("./vendor/github.com/Jason916/WebDriverAgent")
+	kc := exec.Command("sh", "-c", adb.KillAll("xcodebuild"))
+	kc.Run()
+	if err := rc.Start(); err != nil {
+		log.Error("start wda failed", err)
 	}
+	time.Sleep(time.Second * 8)
 
+	log.Success("app inspector started")
 }
 
 func checkWdaStart(h, p string) bool {
 	wdaLogPath := "./vendor/github.com/Jason916/WebDriverAgent/WdaSetup.log"
-	cmd := exec.Command("sh", "-c", adb.GrepFileCommand("Successfully\\ wrote", wdaLogPath))
-	sc := exec.Command("sh", "-c", adb.GrepFileCommand("ServerURLHere", wdaLogPath))
-	out, err := cmd.CombinedOutput()
+
+	f, err := ioutil.ReadFile(wdaLogPath)
 	if err != nil {
-		return false
+		log.Warning("read file failed", err)
 	}
-	c := strings.TrimSpace(string(out))
-	count, err := strconv.Atoi(c)
+	count := strings.Count(string(f), "Successfully wrote")
+
 	if count > 0 {
 		_, err := http.Get("http://" + h + ":" + p + "/status")
 		if err != nil {
 			log.Warning("get status failed,retrying")
 		}
-		out, err := sc.CombinedOutput()
-		fmt.Println(string(out))
+
+		f, err := ioutil.ReadFile(wdaLogPath)
 		if err != nil {
-			return false
+			log.Warning("read file failed", err)
 		}
-		c := strings.TrimSpace(string(out))
-		count, err := strconv.Atoi(c)
+		count := strings.Count(string(f), "ServerURLHere")
+
 		if count > 0 {
 			return true
 		}

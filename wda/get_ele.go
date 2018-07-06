@@ -28,7 +28,7 @@ type ElementRequest struct {
 	Value   string `json:"value"`
 }
 
-func (c *Client)  GetElementInfo(using string, value string) (*ElementResp, error) {
+func (c *Client) GetElementInfo(using string, value string) (*ElementResp, error) {
 	session, err := c.getSession()
 	if err != nil {
 		return nil, err

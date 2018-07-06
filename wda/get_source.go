@@ -10,8 +10,8 @@ type PageJsonSource struct {
 	Type      string `json:"type"`
 	Value     string `json:"value"`
 	Label     string `json:"label"`
-	IsEnabled bool `json:"isEnabled"`
-	IsVisible bool `json:"isVisible"`
+	IsEnabled bool   `json:"isEnabled"`
+	IsVisible bool   `json:"isVisible"`
 	Rect struct {
 		X      float32 `json:"x"`
 		Y      float32 `json:"y"`
