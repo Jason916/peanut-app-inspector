@@ -100,8 +100,8 @@ func setHandlers(mux *http.ServeMux, iClient *wda.Client) {
 		mux.Handle("/static/", wda_handlers.NewStaticHandler())
 	} else {
 		adb.InitDevice(deviceID)
-		cmd := adb.GetDeviceId()
-		fmt.Printf("%v", cmd)
+		//cmd := adb.GetDeviceId()
+		//fmt.Printf("%v", cmd)
 		mux.Handle("/", handler.NewHandler(adb_handlers.NewIndex()))
 		mux.Handle("/screenShot", handler.NewHandler(adb_handlers.NewScreenShotHandler()))
 		mux.Handle("/sourceTree", handler.NewHandler(adb_handlers.NewSourceHandler()))
