@@ -1,6 +1,9 @@
 ## Peanut-app-inspector
 peanut app inspector is an UI viewer that can be applied in android and iOS.
 
+## Screenshot
+![image](https://github.com/Jason916/peanut-app-inspector/tree/master/resources/static/pic/inspector_demo.png)
+
 ## Installation
 Checkout this repository
 ```bash
