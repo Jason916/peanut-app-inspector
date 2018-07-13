@@ -5,6 +5,13 @@ peanut app inspector is an UI viewer that can be applied in android and iOS.
 ![image](/resources/static/pic/inspector_demo.png)
 
 ## Installation
+
+Before checkout repository
+-- install adb
+-- install ios-deploynpm     [install -g ios-deploy]
+-- install libimobiledevice  [brew install libimobiledevice --HEAD]
+-- install usbmuxd           [brew install usbmuxd]
+
 Checkout this repository
 ```bash
 git clone https://github.com/Jason916/peanut-app-inspector $GOPATH/src/github.com/Jason916/peanut-app-inspector
