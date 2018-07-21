@@ -90,8 +90,8 @@ var Tree = function ($el) {
                     return segment.key;
                 }
             });
-            var currentNodepath = "//" + pathSegments.get().join('');
-            _onElementSelect(e.data, e.data.bounds, currentNodepath);
+            var currentNodePath = "//" + pathSegments.get().join('');
+            _onElementSelect(e.data, e.data.bounds, currentNodePath);
             return false;
         });
 

@@ -10,16 +10,16 @@ $(function () {
         method: 'get',
         url: '/screenShot',
         dataType: 'json',
-        beforeSend: function() {
+        beforeSend: function () {
             screen.lock();
         },
-        complete: function() {
+        complete: function () {
             screen.unlock();
         },
-        success: function(data) {
+        success: function (data) {
             screen.update(data.img);
         },
-        error: function() {
+        error: function () {
             screen.error('error when getting screenShot');
         }
     });
@@ -27,7 +27,7 @@ $(function () {
     var info = new Info($('.wda_info_container'));
 
     var tree = new Tree($('.wda_tree_container'));
-    tree.onElementFocus(function(rect) {
+    tree.onElementFocus(function (rect) {
         screen.highlight(
             rect.x,
             rect.y,
@@ -44,7 +44,7 @@ $(function () {
             rect.height
         );
         screen.highlightSelection();
-        mergeJsonObject = function(json1, json2) {
+        mergeJsonObject = function (json1, json2) {
             var resultJson = {};
             for (var attr in json1) {
                 resultJson[attr] = json1[attr];
@@ -54,36 +54,36 @@ $(function () {
             }
             return resultJson;
         };
-        var newJsonObject = mergeJsonObject(infoData, { xpath: path });
+        var newJsonObject = mergeJsonObject(infoData, {xpath: path});
         info.update(newJsonObject);
     });
     $.ajax({
         method: 'get',
         url: '/sourceTree',
         dataType: 'json',
-        beforeSend: function() {
+        beforeSend: function () {
             tree.lock();
         },
-        complete: function() {
+        complete: function () {
             tree.unlock();
         },
-        success: function(data) {
+        success: function (data) {
             tree.update(data.tree);
         },
-        error: function() {
+        error: function () {
             tree.error('error when getting source tree');
         }
     });
 
     var search = new Search($('#navbar'), {
         url: '/eleInfo',
-        success: function(data) {
+        success: function (data) {
             tree.select(data.value, data.type);
         },
-        notFound: function(locator) {
+        notFound: function (locator) {
             info.error(locator + ' not found!');
         },
-        error: function(locator) {
+        error: function (locator) {
             info.error("can't find element by locator: [" + locator + "]");
         }
     });

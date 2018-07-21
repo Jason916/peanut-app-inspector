@@ -18,8 +18,8 @@
     padding: 10px;
     min-height: 200px;
     min-width: 200px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -32,6 +32,7 @@
 
 .adb_screen_container {
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .adb_tree {
@@ -42,4 +43,10 @@
 .adb_tree_container {
     height: 500px;
     overflow: auto;
+}
+
+.footer span {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

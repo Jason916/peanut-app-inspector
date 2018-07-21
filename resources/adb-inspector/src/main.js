@@ -27,21 +27,21 @@ $(function () {
     var info = new Info($('.adb_info_container'));
 
     var tree = new Tree($('.adb_tree_container'));
-    tree.onElementFocus(function (rect) {
+    tree.onElementFocus(function (bounds) {
         screen.highlight(
-            rect.x,
-            rect.y,
-            rect.width,
-            rect.height
+            bounds[0],
+            bounds[1],
+            bounds[2],
+            bounds[3]
         );
     });
     tree.onElementBlur(screen.highlightSelection);
-    tree.onElementSelect(function (infoData, rect, path) {
+    tree.onElementSelect(function (infoData, bounds, path) {
         screen.select(
-            rect.x,
-            rect.y,
-            rect.width,
-            rect.height
+            bounds[0],
+            bounds[1],
+            bounds[2],
+            bounds[3]
         );
         screen.highlightSelection();
         mergeJsonObject = function (json1, json2) {

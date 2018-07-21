@@ -18,6 +18,12 @@ var Screen = function ($el) {
         _$highlight,
         _$lockOverlay;
 
+    var currentScreenRate = 0;
+
+    var getScreenRate = function (width) {
+        return width > 1000 ? 0.4 : 0.5;
+    };
+
     var _render = function ($content) {
         $el
             .empty()
@@ -41,9 +47,11 @@ var Screen = function ($el) {
         var $content = $(img);
 
         img.onload = function () {
+            var rate = getScreenRate(img.width);
+            currentScreenRate = rate;
             $content.css({
-                width: Math.round(img.width * 0.5) + 'px',
-                height: Math.round(img.height * 0.5) + 'px'
+                width: Math.round(img.width * rate) + 'px',
+                height: Math.round(img.height * rate) + 'px'
             });
             _render($content);
         }
@@ -58,10 +66,10 @@ var Screen = function ($el) {
     // highlight area
     this.highlight = function (x, y, w, h) {
         _$highlight.css({
-            left: x + 'px',
-            top: y + 'px',
-            width: w + 'px',
-            height: h + 'px'
+            left: x * currentScreenRate + 'px',
+            top: y * currentScreenRate + 'px',
+            width: w * currentScreenRate + 'px',
+            height: h * currentScreenRate + 'px'
         });
     };
 

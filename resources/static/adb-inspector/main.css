@@ -2,34 +2,28 @@
     max-width: 300px;
     overflow: auto;
 }
-
 .adb_screen_highlight {
     background-color: rgba(255, 0, 0, 0.3);
     position: absolute;
 }
-
 .adb_tree ul {
     list-style: none;
     padding: 0 0 0 20px;
     margin: 0 0 10px 10px;
 }
-
 .adb_tree ul ul {
     border-left: dotted 1px #ccc;
 }
-
 .adb_container {
     padding: 60px 0 0;
     position: relative;
 }
-
 .adb_info {
     padding: 60px 0 0;
     position: absolute;
     top: 0;
     right: 0;
 }
-
 .adb_info_container {
     padding: 10px;
     min-height: 200px;
@@ -38,29 +32,24 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     background-color: rgba(255, 255, 255, 0.8);
 }
-
 .adb_screen {
     padding: 10px;
     min-width: 300px;
     min-height: 500px;
     float: left;
 }
-
 .adb_screen_container {
     position: relative;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
-
 .adb_tree {
     padding: 10px;
     overflow: hidden;
 }
-
 .adb_tree_container {
     height: 500px;
     overflow: auto;
 }
-
 .footer span {
     position: fixed;
     bottom: 0;

@@ -1,7 +1,7 @@
 {
   "name": "adb inspector",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "adb inspector for android",
   "main": "main.js",
   "devDependencies": {
     "browserify": "^13.1.0",

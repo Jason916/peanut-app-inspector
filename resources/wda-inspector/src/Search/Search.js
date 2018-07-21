@@ -2,17 +2,17 @@ var tpl = {
     form: require('./tpl/form.html')
 };
 
-var Search = function($el, options) {
+var Search = function ($el, options) {
 
     var _isLocked = false;
 
-    var _render = function($content) {
+    var _render = function ($content) {
         $el
             .empty()
             .append($content);
     };
 
-    var _lock = function() {
+    var _lock = function () {
         if (_isLocked) {
             return false;
         }
@@ -25,16 +25,17 @@ var Search = function($el, options) {
         return true;
     };
 
-    var _unlock = function() {
+    var _unlock = function () {
         $el
             .find('input')
             .removeAttr('readonly');
         _isLocked = false;
     };
 
-    (function() {
+    // init search form
+    (function () {
         var $form = $(tpl.form);
-        $form.on('submit', function() {
+        $form.on('submit', function () {
             if (_lock()) {
                 var locator = $(this).find('input[name="value"]').val();
                 $.ajax({
@@ -43,14 +44,14 @@ var Search = function($el, options) {
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: options.success,
-                    error: function(jqXHR) {
+                    error: function (jqXHR) {
                         if (jqXHR.status === 400) {
                             options.notFound(locator);
                         } else {
                             options.error(locator);
                         }
                     },
-                    complete: function() {
+                    complete: function () {
                         _unlock();
                     }
                 });

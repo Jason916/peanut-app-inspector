@@ -5,7 +5,7 @@ var tpl = {
     error: require('./tpl/error.html')
 };
 
-var Screen = function($el) {
+var Screen = function ($el) {
 
     var
         _this = this,
@@ -18,46 +18,53 @@ var Screen = function($el) {
         _$highlight,
         _$lockOverlay;
 
-    var _render = function($content) {
+    var currentScreenRate = 0;
+
+    var getScreenRate = function (width) {
+        return width > 1000 ? 1 / 3 : 0.5;
+    };
+
+    var _render = function ($content) {
         $el
             .empty()
             .append($content, _$highlight, _$lockOverlay);
     };
 
     // waiting screenShot
-    this.lock = function() {
+    this.lock = function () {
         _$lockOverlay.show();
     };
 
     // present
-    this.unlock = function() {
+    this.unlock = function () {
         _$lockOverlay.hide();
     };
 
     // update screenShot
-    this.update = function(src) {
+    this.update = function (src) {
         var img = new Image();
         img.src = 'data:image/png;base64,' + src;
         var $content = $(img);
 
         img.onload = function () {
+            var rate = getScreenRate(img.width);
+            currentScreenRate = rate;
             $content.css({
-                width: Math.round(img.width * 0.5) + 'px',
-                height: Math.round(img.height * 0.5) + 'px'
+                width: Math.round(img.width * rate) + 'px',
+                height: Math.round(img.height * rate) + 'px'
             });
             _render($content);
         }
     };
 
     // render error message
-    this.error = function(message)
-    {
+    this.error = function (message) {
         var $content = $(Mustache.render(tpl.error, {message: message}));
         _render($content);
     };
 
     // highlight area
-    this.highlight = function(x, y, w, h) {
+    this.highlight = function (x, y, w, h) {
         _$highlight.css({
             left: x + 'px',
             top: y + 'px',
@@ -67,7 +74,7 @@ var Screen = function($el) {
     };
 
     // highlight selection
-    this.highlightSelection = function() {
+    this.highlightSelection = function () {
         _this.highlight(
             _selection.x,
             _selection.y,
@@ -77,7 +84,7 @@ var Screen = function($el) {
     };
 
     // select area
-    this.select = function(x, y, w, h) {
+    this.select = function (x, y, w, h) {
         _selection.x = x;
         _selection.y = y;
         _selection.w = w;
@@ -85,7 +92,7 @@ var Screen = function($el) {
     };
 
     // init tpl
-    (function() {
+    (function () {
         _$highlight = $(tpl.highlight);
         _$lockOverlay = $(tpl.lockOverlay);
     })();

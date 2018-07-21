@@ -5,35 +5,39 @@ var tpl = {
     error: require('./tpl/error.html')
 };
 
-var Tree = function($el) {
+var Tree = function ($el) {
 
     var
         _$lockOverlay,
-        _onElementSelect = function() {},
-        _onElementFocus = function() {},
-        _onElementBlur = function() {};
+        _onElementSelect = function () {
+        },
+        _onElementFocus = function () {
+        },
+        _onElementBlur = function () {
+        };
 
-    var _buildList = function(elements) {
+    var _buildList = function (elements) {
         var $list = $('<ul />');
+        var j = 0;
         for (var i = 0; i < elements.length; ++i) {
             var item = elements[i];
-            item.hasChildren = item.children? true : false;
+            item.hasChildren = item.children ? true : false;
+
+            item.num = item.children ? ++j : 1;
             item.rectStr = JSON.stringify(item.rect);
             var
                 $li = $('<li />'),
                 $item = $(Mustache.render(tpl.item, item));
 
-            $li.on('mouseenter.wda-inspector', '.el-type', item.rect, function(e) {
+            $li.on('mouseenter.wda-inspector', '.el-type', item.rect, function (e) {
                 _onElementFocus(e.data);
-
                 return false;
             });
-            $li.on('mouseleave.wda-inspector', '.el-type', function(e) {
+            $li.on('mouseleave.wda-inspector', '.el-type', function (e) {
                 _onElementBlur(e.data);
-
                 return false;
             });
-            $li.on('click.wda-inspector', '.el-type', item, function(e) {
+            $li.on('click.wda-inspector', '.el-type', item, function (e) {
                 $el
                     .find(".el-type.label-primary")
                     .removeClass("label-primary")
@@ -63,12 +67,10 @@ var Tree = function($el) {
                         }
 
                     }
-                    var key = $(li).children("span").first().children("strong").text()+ '[' + index + ']';
-                    var keyType = "object";
+                    var key = $(li).children("span").first().children("strong").text() + '[' + index + ']';
 
                     return {
                         key: key,
-                        keyType: keyType
                     };
                 });
 
@@ -80,6 +82,11 @@ var Tree = function($el) {
                     }
                 });
                 var currentNodepath = "//" + pathSegments.get().join('');
+                // alert(currentNodepath);
+                // $(function(){
+                //     var eleText = $(".el-type.label-primary").children("strong").text();
+                //     alert(eleText);
+                // });
 
                 _onElementSelect(e.data, e.data.rect, currentNodepath);
 
@@ -115,61 +122,60 @@ var Tree = function($el) {
 
             return false;
         });
-
         return $list;
     };
 
-    var _render = function($content) {
+    var _render = function ($content) {
         $el
             .empty()
             .append($content, _$lockOverlay);
     };
 
     // waiting source tree
-    this.lock = function() {
+    this.lock = function () {
         _$lockOverlay.show();
     };
 
     // present
-    this.unlock = function() {
+    this.unlock = function () {
         _$lockOverlay.hide();
     };
 
     // render error message
-    this.error = function(message) {
+    this.error = function (message) {
         var $content = $(Mustache.render(tpl.error, {message: message}));
         _render($content);
     };
 
     // update source tree
-    this.update = function(elements) {
+    this.update = function (elements) {
         var $list = _buildList(elements.children);
         _render($list);
     };
 
-    this.select = function(rect, type) {
+    this.select = function (rect, type) {
         $el
-            .find(".el-type[data-rect='" + JSON.stringify(rect) + "'] > :contains(" + "XCUIElementType"+ type + ")")
+            .find(".el-type[data-rect='" + JSON.stringify(rect) + "'] > :contains(" + "XCUIElementType" + type + ")")
             .click();
     };
 
     // element focus handler
-    this.onElementFocus = function(handler) {
+    this.onElementFocus = function (handler) {
         _onElementFocus = handler;
     };
 
     // element blur handler
-    this.onElementBlur = function(handler) {
+    this.onElementBlur = function (handler) {
         _onElementBlur = handler;
     };
 
     // element select handler
-    this.onElementSelect = function(handler) {
+    this.onElementSelect = function (handler) {
         _onElementSelect = handler;
     };
 
     // init lockOverlay
-    (function() {
+    (function () {
         _$lockOverlay = $(tpl.lockOverlay);
     })();
 

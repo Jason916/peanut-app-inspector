@@ -4,17 +4,17 @@ var tpl = {
     error: require('./tpl/error.html')
 };
 
-var Info = function($el) {
+var Info = function ($el) {
 
     var _previousColor;
 
-    var _render = function($content) {
+    var _render = function ($content) {
         $el
             .empty()
             .append($content);
     };
 
-    var _blink = function(color) {
+    var _blink = function (color) {
         $el
             .stop()
             .animate({
@@ -25,19 +25,19 @@ var Info = function($el) {
             }, 500)
     };
 
-    this.update = function(info) {
+    this.update = function (info) {
         var $content = $(Mustache.render(tpl.info, {info: info}));
         _render($content);
         _blink('rgba(250, 255, 189, 0.8)');
     };
 
-    this.error = function(message) {
+    this.error = function (message) {
         var $content = $(Mustache.render(tpl.error, {message: message}));
         _render($content);
         _blink('rgba(255, 150, 150, 0.8)');
     };
 
-    (function() {
+    (function () {
         _previousColor = $el.css('background-color');
     })();
 
