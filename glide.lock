@@ -1,5 +1,5 @@
 hash: b058f5ac117ae03c85364b3e27d5656ad451af1019db7bf38a5955e9336fe43d
-updated: 2018-06-23T00:38:28.419725+08:00
+updated: 2018-09-14T19:39:56.271485+08:00
 imports:
 - name: github.com/bitly/go-simplejson
   version: aabad6e819789e569bd6aabf444c935aa9ba1e44
@@ -8,7 +8,7 @@ imports:
 - name: github.com/Jason916/jsonStreamer
   version: f4e7a316637778e611dd4ed52f5fdd80dc619b97
 - name: github.com/Jason916/peanut_core
-  version: 2a9a19802291e8c5283c308ca93157a1d319773d
+  version: 2ae6985a9821677c48dfd61d572b344cb72b3cf1
   subpackages:
   - handler
   - json
