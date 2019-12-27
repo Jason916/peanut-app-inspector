@@ -1,5 +1,5 @@
 {
-  "name": "wda inspector",
+  "name": "wda-inspector",
   "version": "1.0.1",
   "description": "wda inspector for iOS",
   "main": "main.js",

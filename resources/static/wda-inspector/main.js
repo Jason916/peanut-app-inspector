@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var Mustache = require('mustache');
 var tpl = {
     info: require('./tpl/info.html'),
@@ -49,7 +49,7 @@ module.exports = Info;
 module.exports = "<div>{{message}}</div>";
 
 },{}],3:[function(require,module,exports){
-module.exports = "<div class=\"wda_info_content\">\n    <strong>isEnabled</strong> {{info.isEnabled}} <br>\n    <strong>isVisible</strong> {{info.isVisible}} <br>\n    <strong>Class</strong> XCUIElementType{{info.type}} <br>\n    <strong>Name</strong> {{info.name}} <br>\n    <strong>Label</strong> {{info.label}} <br>\n    <strong>Value</strong> {{info.value}} <br>\n    <strong>Rect</strong> {{info.frame}} <br>\n    <strong>XPath</strong> {{info.xpath}} <br>\n</div>\n";
+module.exports = "<div class=\"wda_info_content\">\n    <strong>isEnabled</strong> {{info.isEnabled}}<br>\n    <strong>isVisible</strong> {{info.isVisible}}<br>\n    <strong>Class</strong> XCUIElementType{{info.type}}<br>\n    <strong>Name</strong> {{info.name}}<br>\n    <strong>Label</strong> {{info.label}}<br>\n    <strong>Value</strong> {{info.value}}<br>\n    <strong>Rect</strong> {{info.frame}}<br>\n    <strong>XPath</strong> {{info.xpath}}<br>\n</div>\n";
 
 },{}],4:[function(require,module,exports){
 var Mustache = require('mustache');
@@ -1091,7 +1091,7 @@ $(function () {
   };
 
   mustache.name = 'mustache.js';
-  mustache.version = '2.3.0';
+  mustache.version = '2.3.2';
   mustache.tags = [ '{{', '}}' ];
 
   // All high-level mustache.* functions use this writer.

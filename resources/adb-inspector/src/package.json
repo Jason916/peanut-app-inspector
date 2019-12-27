@@ -1,5 +1,5 @@
 {
-  "name": "adb inspector",
+  "name": "adb-inspector",
   "version": "1.0.1",
   "description": "adb inspector for android",
   "main": "main.js",
